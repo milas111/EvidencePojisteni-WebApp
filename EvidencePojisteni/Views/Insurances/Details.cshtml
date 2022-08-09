@@ -1,0 +1,25 @@
+﻿@model EvidencePojisteni.Models.Insurances.Insurance
+
+@{
+    ViewData["Title"] = "O pojištění";
+}
+
+<h2 class="font-weight-bold">@Html.DisplayFor(model => model.InsuranceName)</h2>
+
+<div class="row mt-5 align-items-center">
+    <div class="col-md-6">
+        <img src="~/images/insurances/@Model.InsuranceImage" class="img-thumbnail" height="500" width="500" asp-append-version="true" />
+    </div>
+
+    <div class="col-md-6 mt-md-0 mt-5 h4">
+        @Html.DisplayFor(model => model.InsuranceDescription)
+    </div>
+</div>
+
+@if (User.IsInRole("Admin"))
+{
+    <p class="text-center text-white my-5">
+        <a class="btn btn-lg btn-danger m-2" asp-action="Delete" asp-route-id="@Model.InsuranceId">Odstranit pojištění</a>
+        <a class="btn btn-lg btn-warning m-2" asp-action="Edit" asp-route-id="@Model.InsuranceId">Editovat pojištění</a>
+    </p>
+}

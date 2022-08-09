@@ -1,0 +1,78 @@
+﻿@model EvidencePojisteni.Models.AssignedInsurances.AssignedInsurance
+
+@{
+    ViewData["Title"] = "Detail pojištění";
+}
+
+<h2 class="font-weight-bold">O sjednaném pojištění</h2>
+
+<div class="mt-5">
+    <dl class="row mb-0">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Insurance)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.Insurance.InsuranceName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Insured)
+        </dt>
+        <dd class="col-sm-2">
+            @{
+                var fullName = Model.Insured.FirstName + " " + Model.Insured.SurName;
+                @Html.DisplayFor(model => fullName)
+            }
+        </dd>
+    </dl>
+    <dl class="row mb-0">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Issue)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.Issue)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.InsuranceRole)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.InsuranceRole)
+        </dd>
+    </dl>
+    <dl class="row mb-0">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Value)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.Value)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Paid)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.Paid)
+        </dd>
+    </dl>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ValidFrom)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.ValidFrom)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ValidTo)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.ValidTo)
+        </dd>
+    </dl>
+</div>
+
+<div class="text-center my-5">
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="btn btn-lg btn-danger m-2 col-md-auto col-6" asp-action="Delete" asp-route-id="@Model.AssignedInsuranceId">Odstranit pojištění</a>
+        <a class="btn btn-lg btn-warning m-2 col-md-auto col-6" asp-action="Edit" asp-route-id="@Model.AssignedInsuranceId">Editovat pojištění</a>
+    }
+    <a class="btn btn-lg btn-info m-2 col-md-auto col-6" asp-action="Index">Zpět na seznam pojištění</a>
+</div>

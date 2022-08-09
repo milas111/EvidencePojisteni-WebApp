@@ -1,0 +1,115 @@
+﻿@model IEnumerable<EvidencePojisteni.Models.InsuranceEvents.InsuranceEvent>
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Pojistné události";
+}
+
+<div class="text-center mt-2">
+    <a class="btn btn-lg btn-primary my-2 col-md-auto col-6" asp-controller="InsuranceEvents" asp-route-insuredId="@ViewBag.InsuredId" asp-action="Create">Nahlásit událost</a>
+</div>
+
+@if (User.IsInRole("Admin"))
+{
+    <h2 class="font-weight-bold">Všechny pojistné události</h2>
+    <br />
+    <table class="table border border-dark">
+        <thead>
+            <tr>
+                <th class="border border-dark text-center">
+                    @Html.DisplayNameFor(model => model.InsuranceEventId)
+                </th>
+                <th class="border border-dark text-center">
+                    @Html.DisplayNameFor(model => model.Insured)
+                </th>
+                <th class="border border-dark text-center">
+                    @Html.DisplayNameFor(model => model.Insurance)
+                </th>
+                <th class="border border-dark text-center">
+                    @Html.DisplayNameFor(model => model.EventDate)
+                </th>
+                <th class="border border-dark text-center">
+                    Odstranit/Editovat
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="border border-dark">
+                        <a asp-action="Details" asp-route-id="@item.InsuranceEventId">@Html.DisplayFor(modelItem => item.InsuranceEventId)</a>
+                    </td>
+                    <td class="border border-dark">
+                        @{
+                            var fullname = item.FirstName + " " + item.SurName;
+                            @Html.DisplayFor(modelItem=>fullname)
+                        }
+                    </td>
+                    <td class="border border-dark">
+                        @Html.DisplayFor(modelItem => item.Insurance.InsuranceName)
+                    </td>
+                    <td class="border border-dark">
+                        @Html.DisplayFor(modelItem => item.EventDate)
+                    </td>
+                    <td class="border border-dark">
+                        <div class="d-flex">
+                            <a class="btn btn-danger mx-2 w-50" asp-action="Delete" asp-route-id="@item.InsuranceEventId">X</a>
+                            <a class="btn btn-warning mx-2 text-white w-50" asp-action="Edit" asp-route-id="@item.InsuranceEventId">E</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+if (User.Identity.IsAuthenticated)
+{
+    <h2 class="font-weight-bold">Moje pojistné události</h2>
+
+    <br />
+    @if (Model.Where(x => x.Insured != null && x.Insured.UserId == @UserManager.FindByNameAsync(User.Identity.Name).Result.Id).Count() > 0)
+    {
+        <table class="table border border-dark">
+            <thead>
+                <tr>
+                    <th class="border border-dark text-center">
+                        @Html.DisplayNameFor(model => model.InsuranceEventId)
+                    </th>
+                    <th class="border border-dark text-center">
+                        @Html.DisplayNameFor(model => model.Insurance)
+                    </th>
+                    <th class="border border-dark text-center">
+                        @Html.DisplayNameFor(model => model.EventDate)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Where(x => x.Insured != null && x.Insured.UserId == @UserManager.FindByNameAsync(User.Identity.Name).Result.Id))
+                {
+                    <tr>
+                        <td class="border border-dark">
+                            <a asp-action="Details" asp-route-id="@item.InsuranceEventId">@Html.DisplayFor(modelItem => item.InsuranceEventId)</a>
+                        </td>
+                        <td class="border border-dark">
+                            @Html.DisplayFor(modelItem => item.Insurance.InsuranceName)
+                        </td>
+                        <td class="border border-dark">
+                            @Html.DisplayFor(modelItem => item.EventDate)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-black-50">
+            Nemám nahlášené žádné události
+        </p>
+    }
+
+}

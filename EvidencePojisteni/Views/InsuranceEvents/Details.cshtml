@@ -1,0 +1,120 @@
+﻿@model EvidencePojisteni.Models.InsuranceEvents.InsuranceEvent
+
+@{
+    ViewData["Title"] = "Detail události";
+}
+
+<h2 class="font-weight-bold">O události</h2>
+
+<div class="mt-5">
+    <h4 class="font-weight-bold text-center my-3">Pojištění, na které se událost vztahuje</h4>
+    <dl class="row mb-0">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Insurance)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.Insurance.InsuranceName)
+        </dd>
+    </dl>
+    <h4 class="font-weight-bold text-center my-3">Údaje pojištěnce</h4>
+    <dl class="row mb-0">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SurName)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.SurName)
+        </dd>
+    </dl>
+    <dl class="row mb-0">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+    <dl class="row mb-0">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Street)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.Street)
+        </dd>
+    </dl>
+    <dl class="row mb-0">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Zip)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.Zip)
+        </dd>
+    </dl>
+    <h4 class="font-weight-bold text-center my-3">Popis události</h4>
+
+    <dl class="row mb-0">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EventDate)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.EventDate)
+        </dd>
+    </dl>
+
+    <dl class="row mb-0">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.EventDescription)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.EventDescription)
+        </dd>
+    </dl>
+
+    <h4 class="font-weight-bold text-center my-3">Platební údaje</h4>
+    <dl class="row mb-0">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AccountNumber)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.AccountNumber)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BankCode)
+        </dt>
+        <dd class="col-sm-2">
+            @Html.DisplayFor(model => model.BankCode)
+        </dd>
+    </dl>
+</div>
+
+<div class="text-center my-5">
+    @if (User.IsInRole("Admin"))
+    {
+        <a class="btn btn-lg btn-danger m-2 col-md-auto col-6" asp-action="Delete" asp-route-id="@Model.InsuranceEventId">Odstranit událost</a>
+        <a class="btn btn-lg btn-warning m-2 col-md-auto col-6" asp-action="Edit" asp-route-id="@Model.InsuranceEventId">Editovat událost</a>
+    }
+    <a class="btn btn-lg btn-info m-2 col-md-auto col-6" asp-action="Index">Zpět na seznam událostí</a>
+</div>

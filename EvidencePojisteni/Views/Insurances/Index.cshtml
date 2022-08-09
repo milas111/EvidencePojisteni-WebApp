@@ -1,0 +1,41 @@
+﻿@model IEnumerable<EvidencePojisteni.Models.Insurances.Insurance>
+
+@{
+    ViewData["Title"] = "Pojištění";
+}
+
+<h2 class="font-weight-bold">Pojištění</h2>
+
+@if (User.IsInRole("Admin"))
+{
+    <p class="text-center my-5">
+        <a class="btn btn-info btn-lg" asp-action="Create">Vytvořit nové pojištění</a>
+    </p>
+
+}
+
+<div class="row ">
+    @foreach (var item in Model)
+    {
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card m-4">
+                <a asp-action="Details" asp-route-id="@item.InsuranceId">
+                    <img src="~/images/insurances/@Model.Where(x=>x.InsuranceId==item.InsuranceId).Select(x=>x.InsuranceImage).FirstOrDefault()" class="card-img" height="200" width="200" asp-append-version="true" />
+                </a>
+                <div class="card-body bg-warning">
+                    <h4 class="card-title text-center">@Html.DisplayFor(modelItem => item.InsuranceName)</h4>
+
+                </div>
+                <div class="card-footer bg-warning" style="opacity:50%">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <p class="text-center text-white">
+                            <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.InsuranceId">Odstranit</a>
+                            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.InsuranceId">Editovat</a>
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

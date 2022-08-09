@@ -1,0 +1,26 @@
+﻿@model EvidencePojisteni.Models.AssignedInsurances.AssignedInsurancesToPolicyholders
+
+@{
+    ViewData["Title"] = "Přiřazení pojištění";
+}
+
+<h3 class="font-weight-bold">Přiřadit pojištění k @ViewBag.Name</h3>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AssignedInsuranceId" class="control-label"></label>
+                <select asp-for="AssignedInsuranceId" class ="form-control" asp-items="ViewBag.AssignedInsuranceId"></select>
+            </div>
+            <div class="form-group d-none">
+                <label asp-for="InsuredId" class="control-label"></label>
+                <select asp-for="InsuredId" class ="form-control" asp-items="ViewBag.InsuredId"></select>
+            </div>
+            <div class="form-group text-center my-4">
+                <input type="submit" value="Uložit" class="btn btn-lg btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

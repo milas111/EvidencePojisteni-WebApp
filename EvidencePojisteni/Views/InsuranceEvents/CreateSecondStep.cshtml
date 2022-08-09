@@ -1,0 +1,47 @@
+﻿@model EvidencePojisteni.Models.Insureds.InsuredBase
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Nová pojistná událost";
+}
+
+<h3 class="font-weight-bold">Nahlášení pojistné události</h3>
+
+<nav class="my-4 bg-info">
+    <ul class="nav nav-pills nav-justified">
+        <li class="nav-item">
+            <a class="nav-link disabled rounded-0">Výběr pojištění</a>
+        </li>
+        @if (!SignInManager.IsSignedIn(User))
+        {
+            <li class="nav-item">
+                <a class="nav-link active disabled rounded-0">Údaje pojištěnce</a>
+            </li>
+        }
+        <li class="nav-item">
+            <a class="nav-link disabled rounded-0">Popis události</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled rounded-0">Platební údaje</a>
+        </li>
+    </ul>
+</nav>
+
+@using (Html.BeginForm("CreateSecondStep", "InsuranceEvents", FormMethod.Post))
+{
+    <h4>Údaje pojištěnce</h4>
+    <hr />
+    <div>
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <partial name="_InsuredPartial" />
+        </form>
+        <div class="form-group text-center">
+            <input type="submit" name="BtnPrevious" value="Předchozí krok" class="btn-lg btn-dark m-4" />
+            <input type="submit" name="BtnNext" value="Další krok" class="btn-lg btn-dark m-4" />
+        </div>
+    </div>
+}
+

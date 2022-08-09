@@ -1,0 +1,161 @@
+﻿@model IEnumerable<EvidencePojisteni.Models.AssignedInsurances.AssignedInsurancesToPolicyholders>
+@using Microsoft.AspNetCore.Identity;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+@{
+    ViewData["Title"] = "Přiřazená pojištění";
+}
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <h2 class="font-weight-bold mb-5">Všechna přiřazená pojištění pojištěných k pojístníkům </h2>
+
+    <table class="table border border-dark">
+        <thead>
+            <tr>
+                <th class="border border-dark text-center">
+                    Jméno pojistníka
+                </th>
+                <th class="border border-dark text-center">
+                    Jméno pojištěného
+                </th>
+                <th class="border border-dark text-center">
+                    @Html.DisplayNameFor(model => model.AssignedInsurance.Insurance)
+                </th>
+                <th class="border border-dark text-center">
+                    @Html.DisplayNameFor(model => model.AssignedInsurance.Issue)
+                </th>
+                <th class="border border-dark text-center">
+                    @Html.DisplayNameFor(model => model.AssignedInsurance.Paid)
+                </th>
+                <th class="border border-dark text-center">
+                    Odstranit/Editovat
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="border border-dark">
+                        <a asp-controller="Insureds" asp-action="Details" asp-route-id="@item.InsuredId">@Html.DisplayFor(modelItem => item.Insured.FirstName) @Html.DisplayFor(modelItem => item.Insured.SurName)</a>
+                    </td>
+                    <td class="border border-dark">
+                        <a asp-controller="Insureds" asp-action="Details" asp-route-id="@item.AssignedInsurance.InsuredId">@Html.DisplayFor(modelItem => item.AssignedInsurance.Insured.FirstName) @Html.DisplayFor(modelItem => item.AssignedInsurance.Insured.SurName)</a>
+                    </td>
+                    <td class="border border-dark">
+                        <a asp-controller="AssignedInsurancesToPolicyholders" asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.AssignedInsurance.Insurance.InsuranceName)</a>
+                    </td>
+                    <td class="border border-dark">
+                        @Html.DisplayFor(modelItem => item.AssignedInsurance.Issue)
+                    </td>
+                    <td class="border border-dark text-center">
+                        @if (item.AssignedInsurance.Paid)
+                        {
+                            <button class="btn btn-success" disabled>
+                                @Html.DisplayFor(modelItem=>item.AssignedInsurance.Paid)
+                            </button>
+                        }
+                        else
+                        {
+                            <a class="btn btn-success" asp-controller="Payment" asp-action="Index" asp-route-assignedInsuranceId="@item.AssignedInsuranceId">Zaplatit</a>
+                        }
+                    </td>
+                    <td class="border border-dark">
+                        <div class="d-flex">
+                            <a class="btn btn-danger mx-2 w-50" asp-controller="AssignedInsurancesToPolicyholders" asp-action="Delete" asp-route-id="@item.Id">X</a>
+                            <a class="btn btn-warning mx-2 text-white w-50" asp-controller="AssignedInsurancesToPolicyholders" asp-action="Edit" asp-route-id="@item.Id">E</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @Html.PagedListPager((IPagedList)ViewBag.AssignedInsurancesToPolicyholdersList, page => Url.Action("Index", new
+                {
+                page,
+                }
+                ), new X.PagedList.Web.Common.PagedListRenderOptions
+                {
+                LiElementClasses = new string[] { "page-item" },
+                PageClasses = new string[] { "page-link" },
+                LinkToPreviousPageFormat = "Předchozí",
+                LinkToNextPageFormat = "Další",
+                MaximumPageNumbersToDisplay = 5,
+                UlElementClasses=new[] { "pagination justify-content-center my-4" }
+                }
+                )
+}
+else
+if (User.Identity.IsAuthenticated)
+{
+    <h2 class="font-weight-bold mb-5">Pojištění jiných pojištěnců, která platím jako pojístník </h2>
+
+    @if (Model.Where(x => x.Insured.UserId == @UserManager.FindByNameAsync(User.Identity.Name).Result.Id).Count() > 0)
+    {
+        <table class="table border border-dark">
+            <thead>
+                <tr>
+                    <th class="border border-dark text-center">
+                        Jméno pojištěného
+                    </th>
+                    <th class="border border-dark text-center">
+                        @Html.DisplayNameFor(model => model.AssignedInsurance.Insurance)
+                    </th>
+                    <th class="border border-dark text-center">
+                        @Html.DisplayNameFor(model => model.AssignedInsurance.Issue)
+                    </th>
+                    <th class="border border-dark text-center">
+                        @Html.DisplayNameFor(model => model.AssignedInsurance.Value)
+                    </th>
+                    <th class="border border-dark text-center">
+                        @Html.DisplayNameFor(model => model.AssignedInsurance.Paid)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Where(x => x.Insured.UserId == @UserManager.FindByNameAsync(User.Identity.Name).Result.Id))
+                {
+                    <tr>
+                        <td class="border border-dark">
+                            @Html.DisplayFor(modelItem => item.AssignedInsurance.Insured.FirstName) @Html.DisplayFor(modelItem => item.AssignedInsurance.Insured.SurName)
+                        </td>
+                        <td class="border border-dark">
+                            <a asp-controller="AssignedInsurancesToPolicyholders" asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.AssignedInsurance.Insurance.InsuranceName)</a>
+                        </td>
+                        <td class="border border-dark">
+                            @Html.DisplayFor(modelItem => item.AssignedInsurance.Issue)
+                        </td>
+                        <td class="border border-dark">
+                            @Html.DisplayFor(modelItem => item.AssignedInsurance.Value) Kč
+                        </td>
+                        <td class="border border-dark text-center">
+                            @if (item.AssignedInsurance.Paid)
+                            {
+                                <button class="btn btn-success" disabled>
+                                    @Html.DisplayFor(modelItem=>item.AssignedInsurance.Paid)
+                                </button>
+                            }
+                            else
+                            {
+                                <a class="btn btn-success" asp-controller="Payment" asp-action="Index" asp-route-assignedInsuranceId="@item.AssignedInsuranceId">Zaplatit</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-black-50">
+            Nemám k sobě přidělena žádná pojištění jiných pojištěnců.
+        </p>
+    }
+}
+

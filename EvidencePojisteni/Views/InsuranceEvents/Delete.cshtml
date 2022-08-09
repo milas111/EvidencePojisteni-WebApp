@@ -1,0 +1,95 @@
+﻿@model EvidencePojisteni.Models.InsuranceEvents.InsuranceEvent
+
+@{
+    ViewData["Title"] = "Odstranění události";
+}
+
+<h2 class="font-weight-bold">Opravdu chcete vymazat danou událost?</h2>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.Insurance)
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.Insurance.InsuranceName)
+        </dd>
+         <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.SurName)
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.SurName)
+        </dd>
+        <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+        <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.Street)
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.Street)
+        </dd>
+        <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.Zip)
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.Zip)
+        </dd>
+        <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.EventDate)
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.EventDate)
+        </dd>
+        <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.EventDescription)
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.EventDescription)
+        </dd>
+        <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.AccountNumber)
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.AccountNumber)
+        </dd>
+        <dt class = "col-sm-3">
+            @Html.DisplayNameFor(model => model.BankCode)
+        </dt>
+        <dd class = "col-sm-9">
+            @Html.DisplayFor(model => model.BankCode)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete" class="text-center">
+        <input type="hidden" asp-for="InsuranceEventId" />
+        <input type="submit" value="Odstranit" class="btn-lg btn-danger" />
+    </form>
+</div>

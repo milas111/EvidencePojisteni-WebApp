@@ -1,0 +1,88 @@
+﻿@model EvidencePojisteni.Models.AssignedInsurances.AssignedInsurance
+
+@{
+    ViewData["Title"] = "Placení pojištění";
+}
+
+<h2 class="font-weight-bold my-3">Platba</h2>
+
+<div>
+    <h4 class="font-weight-bold my-2">Souhrnné informace o pojištění</h4>
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Insurance)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Insurance.InsuranceName)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Insured)
+        </dt>
+        <dd class="col-sm-9">
+            @{
+                var fullName = Model.Insured.FirstName + " " + Model.Insured.SurName;
+                @Html.DisplayFor(model => fullName)
+            }
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Issue)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Issue)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Value)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Value)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.ValidFrom)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.ValidFrom)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.ValidTo)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.ValidTo)
+        </dd>
+    </dl>
+</div>
+
+<form id="payment-form" method="post" asp-controller="Payment" asp-action="Create" asp-route-assignedInsuranceId=@Model.AssignedInsuranceId>
+    @Html.HiddenFor(n => n.AssignedInsuranceId)
+    <section>
+        <div class="bt-drop-in-wrapper">
+            <div id="bt-dropin"></div>
+        </div>
+    </section>
+    @Html.HiddenFor(n => n.Nonce, new { @id = "nonce" })
+    <hr />
+    <button class="btn btn-lg btn-success" type="submit"><span>Potvrdit platbu - @Model.Value Kč</span></button>
+</form>
+
+<script src="https://js.braintreegateway.com/web/dropin/1.22.0/js/dropin.min.js"></script>
+<script>
+    var client_token = "@ViewBag.ClientToken";
+    var form = document.querySelector('#payment-form');
+
+    braintree.dropin.create({
+        authorization: client_token,
+        container: '#bt-dropin'
+    }, function(createErr, instance) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            instance.requestPaymentMethod(function(err, payload) {
+                if (err) {
+                    return;
+                }
+
+                document.querySelector('#nonce').value = payload.nonce;
+                form.submit();
+            });
+        });
+    });
+</script>

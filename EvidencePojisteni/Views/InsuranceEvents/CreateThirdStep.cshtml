@@ -1,0 +1,60 @@
+﻿@model EvidencePojisteni.Models.InsuranceEvents.EventDetailsView
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+@{
+    ViewData["Title"] = "Nová pojistná událost";
+}
+
+<h3 class="font-weight-bold">Nahlášení pojistné události</h3>
+
+<nav class="my-4 bg-info">
+    <ul class="nav nav-pills nav-justified">
+        <li class="nav-item">
+            <a class="nav-link disabled">Výběr pojištění</a>
+        </li>
+        @if (!SignInManager.IsSignedIn(User))
+        {
+            <li class="nav-item">
+                <a class="nav-link disabled">Údaje pojištěnce</a>
+            </li>
+        }
+        <li class="nav-item">
+            <a class="nav-link active disabled">Popis události</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled">Platební údaje</a>
+        </li>
+    </ul>
+</nav>
+
+@using (Html.BeginForm("CreateThirdStep", "InsuranceEvents", FormMethod.Post))
+{
+    <h4>Popis události</h4>
+    <hr />
+    <div>
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group col-md-8">
+                <label asp-for="EventDate" class="control-label"></label>
+                <input asp-for="EventDate" class="form-control" />
+                <span asp-validation-for="EventDate" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-8">
+                <label asp-for="EventDescription" class="control-label"></label>
+                <textarea asp-for="EventDescription" class="form-control"></textarea>
+                <span asp-validation-for="EventDescription" class="text-danger"></span>
+            </div>
+        </form>
+        <div class="form-group text-center">
+            <input type="submit" name="BtnPrevious" value="Předchozí krok" class="btn-lg btn-dark m-4" />
+            <input type="submit" name="BtnNext" value="Další krok" class="btn-lg btn-dark m-4" />
+        </div>
+    </div>
+}
+
+
+
+

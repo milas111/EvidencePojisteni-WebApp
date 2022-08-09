@@ -1,0 +1,57 @@
+﻿@model EvidencePojisteni.Models.InsuranceEvents.EventInsuranceView
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+@{
+    ViewData["Title"] = "Nová pojistná událost";
+}
+
+<h3 class="font-weight-bold">Nahlášení pojistné události</h3>
+
+<nav class="my-4 bg-info">
+    <ul class="nav nav-pills nav-justified">
+        <li class="nav-item">
+            <a class="nav-link active disabled">Výběr pojištění</a>
+        </li>
+        @if (!SignInManager.IsSignedIn(User))
+        {
+            <li class="nav-item">
+                <a class="nav-link disabled">Údaje pojištěnce</a>
+            </li>
+        }
+        <li class="nav-item">
+            <a class="nav-link disabled">Popis události</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled">Platební údaje</a>
+        </li>
+    </ul>
+</nav>
+
+@using (Html.BeginForm("Create", "InsuranceEvents", FormMethod.Post))
+{
+    <h4>Vyberte pojištění, na které se událost vztahuje</h4>
+    <hr />
+    <div>
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group col-md-8">
+                <label asp-for="InsuranceId" class="control-label"></label>
+                <select asp-for="InsuranceId" class="form-control" asp-items="ViewBag.InsuranceId">
+                </select>
+            </div>
+            <div class="form-group d-none">
+                <label asp-for="InsuredId" class="control-label"></label>
+                <select asp-for="InsuredId" class="form-control" asp-items="ViewBag.InsuredId">
+                    <option></option>
+                </select>
+            </div>
+        </form>
+        <div class="form-group text-center">
+            <input type="submit" name="BtnNext" value="Další krok" class="btn-lg btn-dark my-4" />
+        </div>
+    </div>
+
+}

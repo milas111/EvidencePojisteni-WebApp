@@ -1,0 +1,73 @@
+﻿@model IEnumerable<EvidencePojisteni.Models.Insureds.Insured>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using EvidencePojisteni.Models.Insureds;
+
+@{
+    ViewData["Title"] = "Pojištěnci";
+}
+<h3 class="font-weight-bold">Pojištěné osoby</h3>
+
+<p class="text-center my-4">
+    <a class="btn btn-lg btn-info" asp-action="Create">Nový pojištěnenec</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th class="border border-dark text-center">
+                Jméno
+            </th>
+            <th class="border border-dark text-center">
+                Bydliště
+            </th>
+            <th class="border border-dark text-center">
+                Odstranit/Editovat
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="border border-dark">
+                    <a asp-action="Details" asp-route-id="@item.InsuredId">
+                        @{
+                            var fullName = item.FirstName + " " + item.SurName;
+                            @Html.DisplayFor(modelItem => fullName)
+                        }
+                    </a>
+                </td>
+                <td class="border border-dark">
+                    @{
+                        var adress = item.Street + ", " + item.City;
+                        @Html.DisplayFor(modelItem => adress)
+                    }
+                </td>
+                <td class="border border-dark">
+                    <div class="d-flex">
+                        <a class="btn btn-danger w-50 mx-2" asp-action="Delete" asp-route-id="@item.InsuredId">X</a>
+                        <a class="btn btn-warning text-white w-50 mx-2" asp-action="Edit" asp-route-id="@item.InsuredId">E</a>
+                    </div>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.PagedListPager((IPagedList)ViewBag.InsuredList, page => Url.Action("Index", new
+                {
+                page
+                }
+                ), new X.PagedList.Web.Common.PagedListRenderOptions
+                {
+                LiElementClasses = new string[] { "page-item" },
+                PageClasses = new string[] { "page-link" },
+                LinkToPreviousPageFormat = "Předchozí",
+                LinkToNextPageFormat = "Další",
+                MaximumPageNumbersToDisplay = 5,
+                UlElementClasses=new[] { "pagination justify-content-center my-4" }
+                }
+                )
+

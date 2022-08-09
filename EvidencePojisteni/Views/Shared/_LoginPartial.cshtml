@@ -1,0 +1,58 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link">@User.Identity.Name</a>
+        </li>
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown">
+                Účet
+            </a>
+            <div class="dropdown-menu bg-dark">
+                <a class="dropdown-item text-muted" asp-area="" asp-controller="AssignedInsurances" asp-action="Index">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <text>Všechna sjednaná pojištění</text>
+                    }
+                    else
+                    {
+                        <text>Moje sjednaná pojištění</text>
+                    }
+                </a>
+                <a class="dropdown-item text-muted" asp-area="" asp-controller="AssignedInsurancesToPolicyholders" asp-action="Index">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <text>Všechna přiřazená pojištění</text>
+                    }
+                    else
+                    {
+                        <text>Pojištění jiných pojištěnců</text>
+                    }
+                </a>
+                <a class="dropdown-item text-muted" asp-controller="Account" asp-action="Edit">
+                    Změna osobních údajů
+                </a>
+                <a class="dropdown-item text-muted" asp-controller="Account" asp-action="ChangePassword">
+                    Změna hesla
+                </a>
+                <a class="dropdown-item text-muted" asp-area="" asp-controller="Account" asp-action="LogOut">
+                    Odhlásit
+                </a>
+            </div>
+        </li>
+    }
+    else
+    {
+        <li class="@(ViewContext.RouteData.Values["Action"].ToString()=="Login"?"nav-item active":"nav-item")">
+            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Přihlásit</a>
+        </li>
+        <li class="@(ViewContext.RouteData.Values["Action"].ToString()=="Register"?"nav-item active":"nav-item")">
+            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">Registrovat</a>
+        </li>
+    }
+</ul>

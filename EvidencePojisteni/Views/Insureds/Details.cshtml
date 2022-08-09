@@ -1,0 +1,161 @@
+﻿@model EvidencePojisteni.Models.Insureds.Insured
+
+@{
+    ViewData["Title"] = "Detail pojištěnce";
+    var fullName = Model.FirstName + " " + Model.SurName;
+    var adress = Model.Street + ", " + Model.City;
+}
+
+<div class="container text-center text-md-left">
+    <div class="row">
+        <div class="col-sm-2">
+            @if (Model.Gender == 0)
+            {
+                <img src="~/images/icons/insured-woman.png" width="150px" />
+            }
+            else
+            {
+                <img src="~/images/icons/insured-man.png" width="150px" />
+            }
+
+        </div>
+        <div class="col-sm-10">
+            <div class="row">
+                <div class="h4 col-12 font-weight-bold">
+                    <br />
+                    @Html.DisplayFor(model => fullName)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5">
+                    <div class="p">
+                        @Html.DisplayFor(model => model.Street)
+                    </div>
+                    <div class="p">
+                        @Html.DisplayFor(model => model.City)
+                    </div>
+                    <div class="p">
+                        @Html.DisplayFor(model => model.Zip)
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="p">
+                        @Html.DisplayFor(model => model.Email)
+                    </div>
+                    <div class="p">
+                        @Html.DisplayFor(model => model.Phone)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.AssignedInsurances.Count > 0)
+{
+    <h3 class="font-weight-bold mt-5 mb-4">Sjednaná pojištění</h3>
+
+    <table class="table border border-dark">
+        <thead>
+            <tr>
+                <th class="border border-dark text-center">
+                    Pojištění
+                </th>
+                <th class="border border-dark text-center">
+                    Částka
+                </th>
+                <th class="border border-dark text-center">
+                    Zaplaceno
+                </th>
+                <th class="border border-dark text-center">
+                    Odstranit/Editovat
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.AssignedInsurances)
+            {
+                <tr>
+                    <td class="border border-dark">
+                        <a asp-controller="AssignedInsurances" asp-action="Details" asp-route-id="@item.AssignedInsuranceId">@Html.DisplayFor(modelItem => item.Insurance.InsuranceName)</a>
+                    </td>
+                    <td class="border border-dark">
+                        @Html.DisplayFor(modelItem => item.Value) Kč
+                    </td>
+                    <td class="border border-dark text-center">
+                        <button class="@(item.Paid?"btn btn-success":"btn btn-light")" disabled>
+                            @Html.DisplayFor(modelItem=>item.Paid)
+                        </button>
+                    </td>
+                    <td class="border border-dark">
+                        <div class="d-flex">
+                            <a class="btn btn-danger mx-2 w-50" asp-controller="AssignedInsurances" asp-action="Delete" asp-route-id="@item.AssignedInsuranceId">X</a>
+                            <a class="btn btn-warning mx-2 text-white w-50" asp-controller="AssignedInsurances" asp-action="Edit" asp-route-id="@item.AssignedInsuranceId">E</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@if (Model.AssignedInsurancesToPolicyholders.Count > 0)
+{
+    <h3 class="font-weight-bold mt-5 mb-4">Přiřazená pojištění jiných pojištěnců</h3>
+
+    <table class="table border border-dark">
+        <thead>
+            <tr>
+                <th class="border border-dark text-center">
+                    Jméno
+                </th>
+                <th class="border border-dark text-center">
+                    Pojištění
+                </th>
+                <th class="border border-dark text-center">
+                    Částka
+                </th>
+                <th class="border border-dark text-center">
+                    Zaplaceno
+                </th>
+                <th class="border border-dark text-center">
+                    Odstranit/Editovat
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.AssignedInsurancesToPolicyholders)
+            {
+                <tr>
+                    <td class="border border-dark">
+                        <a asp-controller="Insureds" asp-action="Details" asp-route-id="@item.AssignedInsurance.InsuredId">@Html.DisplayFor(modelItem => item.AssignedInsurance.Insured.FirstName) @Html.DisplayFor(modelItem => item.AssignedInsurance.Insured.SurName)</a>
+                    </td>
+                    <td class="border border-dark">
+                        <a asp-controller="AssignedInsurancesToPolicyholders" asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.AssignedInsurance.Insurance.InsuranceName)</a>
+                    </td>
+                    <td class="border border-dark">
+                        @Html.DisplayFor(modelItem => item.AssignedInsurance.Value) Kč
+                    </td>
+                    <td class="border border-dark text-center">
+                        <button class="@(item.AssignedInsurance.Paid?"btn btn-success":"btn btn-light")" disabled>
+                            @Html.DisplayFor(modelItem=>item.AssignedInsurance.Paid)
+                        </button>
+                    </td>
+                    <td class="border border-dark">
+                        <div class="d-flex">
+                            <a class="btn btn-danger mx-2 w-50" asp-controller="AssignedInsurancesToPolicyholders" asp-action="Delete" asp-route-id="@item.Id">X</a>
+                            <a class="btn btn-warning mx-2 text-white w-50" asp-controller="AssignedInsurancesToPolicyholders" asp-action="Edit" asp-route-id="@item.Id">E</a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div class="text-center mt-2">
+    <a class="btn btn-lg btn-primary my-2 col-md-auto col-6" asp-controller="AssignedInsurances" asp-route-insuredId="@Model.InsuredId" asp-action="Create">Přidat pojištění</a>
+    <a class="btn btn-lg btn-primary my-2 col-md-auto col-6" asp-controller="AssignedInsurancesToPolicyholders" asp-route-insuredId="@Model.InsuredId" asp-action="Create">Přiřadit pojištění</a>
+    <a class="btn btn-lg btn-warning text-white my-2 col-md-auto col-6" asp-action="Edit" asp-route-id="@Model.InsuredId">Editovat pojištěnce</a>
+    <a class="btn btn-lg btn-danger my-2 col-md-auto col-6" asp-action="Delete" asp-route-id="@Model.InsuredId">Odstranit pojištěnce</a>
+</div>

@@ -1,0 +1,35 @@
+﻿@model EvidencePojisteni.Models.Insurances.InsuranceView
+
+@{
+    ViewData["Title"] = "Odstranění pojištění";
+}
+
+<h2 class="font-weight-bold">Opravdu chcete vymazat dané pojištění?</h2>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.InsuranceName)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.InsuranceName)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.InsuranceDescription)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.InsuranceDescription)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.InsuranceImage)
+        </dt>
+        <dd class="col-sm-9">
+            <img src="~/images/insurances/@Model.ExistingImage" class="img-thumbnail" height="100" width="400" asp-append-version="true" />
+        </dd>
+    </dl>
+
+    <form asp-action="Delete" class="text-center">
+        <input type="hidden" asp-for="InsuranceId" />
+        <input type="submit" value="Odstranit" class="btn btn-lg btn-danger" />
+    </form>
+</div>
