@@ -29,7 +29,7 @@
                     @Html.DisplayNameFor(model => model.Paid)
                 </th>
                 <th class="border border-dark text-center">
-                    Odstranit/Editovat
+                    Akce
                 </th>
             </tr>
         </thead>
@@ -67,8 +67,8 @@
                     </td>
                     <td class="border border-dark">
                         <div class="d-flex">
-                            <a class="btn btn-danger mx-2 w-50" asp-controller="AssignedInsurances" asp-action="Delete" asp-route-id="@item.AssignedInsuranceId">X</a>
-                            <a class="btn btn-warning mx-2 text-white w-50" asp-controller="AssignedInsurances" asp-action="Edit" asp-route-id="@item.AssignedInsuranceId">E</a>
+                            <a class="btn btn-danger mx-2 w-50" asp-controller="AssignedInsurances" asp-action="Delete" asp-route-id="@item.AssignedInsuranceId">Odstranit</a>
+                            <a class="btn btn-warning mx-2 text-white w-50" asp-controller="AssignedInsurances" asp-action="Edit" asp-route-id="@item.AssignedInsuranceId">Editovat</a>
                         </div>
                     </td>
                 </tr>

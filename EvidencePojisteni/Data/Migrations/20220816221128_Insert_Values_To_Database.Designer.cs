@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EvidencePojisteni.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220809075834_Data_filling")]
-    partial class Data_filling
+    [Migration("20220816221128_Insert_Values_To_Database")]
+    partial class Insert_Values_To_Database
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -364,7 +364,7 @@ namespace EvidencePojisteni.Data.Migrations
                             Phone = "neznámé číslo",
                             Street = "Nepovím",
                             SurName = "Soukup",
-                            UserId = "a1b2c3d4e5f6g7h8",
+                            UserId = "e2e36b69-61f7-4dae-bbe2-739e01adfda6",
                             Zip = "621 00"
                         },
                         new
@@ -377,7 +377,7 @@ namespace EvidencePojisteni.Data.Migrations
                             Phone = "731 567 957",
                             Street = "Karlova 73",
                             SurName = "Zobáková",
-                            UserId = "b2c3d4e5f6g7h8i9",
+                            UserId = "5e9cc9b8-31e3-4f15-b7e6-9ffb79287f54",
                             Zip = "110 00"
                         },
                         new
@@ -467,6 +467,15 @@ namespace EvidencePojisteni.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "ed1e00b3-56c7-4076-bcf2-14c7e6c5ba42",
+                            ConcurrencyStamp = "03f8222e-627c-48e3-884c-0d90723544eb",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -560,9 +569,9 @@ namespace EvidencePojisteni.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a1b2c3d4e5f6g7h8",
+                            Id = "e2e36b69-61f7-4dae-bbe2-739e01adfda6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2386b683-ad2b-4ccc-a528-25e4336a7631",
+                            ConcurrencyStamp = "e5077a54-57fa-48c3-875b-43842b46062a",
                             Email = "soukup.miloslav1@seznam.cz",
                             EmailConfirmed = false,
                             LockoutEnabled = true,
@@ -570,15 +579,15 @@ namespace EvidencePojisteni.Data.Migrations
                             NormalizedUserName = "SOUKUP.MILOSLAV1@SEZNAM.CZ",
                             PasswordHash = "AQAAAAEAACcQAAAAEChiF/H0cKhQXypgs3JJLbBUEiv1CwvIBEiYNQwcx+ZvuoCtWmNycVq4KiX6lOV4PQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e7468410-565a-45ad-a5c9-6fc127588b70",
+                            SecurityStamp = "8ebe85f4-58c5-4ff8-becd-ad4b12f5934d",
                             TwoFactorEnabled = false,
                             UserName = "soukup.miloslav1@seznam.cz"
                         },
                         new
                         {
-                            Id = "b2c3d4e5f6g7h8i9",
+                            Id = "5e9cc9b8-31e3-4f15-b7e6-9ffb79287f54",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "134f0be7-b13e-4968-9837-938acca76294",
+                            ConcurrencyStamp = "a0d66d01-7651-4613-8f4f-e076bc9e17f8",
                             Email = "zobakova.vlasta@seznam.cz",
                             EmailConfirmed = false,
                             LockoutEnabled = true,
@@ -586,7 +595,7 @@ namespace EvidencePojisteni.Data.Migrations
                             NormalizedUserName = "ZOBAKOVA.VLASTA@SEZNAM.CZ",
                             PasswordHash = "AQAAAAEAACcQAAAAEChiF/H0cKhQXypgs3JJLbBUEiv1CwvIBEiYNQwcx+ZvuoCtWmNycVq4KiX6lOV4PQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "90116286-2ce9-422a-a20a-1cd3f80e89ba",
+                            SecurityStamp = "7b4ea926-276c-47df-a788-bd8e96c7d982",
                             TwoFactorEnabled = false,
                             UserName = "zobakova.vlasta@seznam.cz"
                         });
@@ -651,6 +660,13 @@ namespace EvidencePojisteni.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "e2e36b69-61f7-4dae-bbe2-739e01adfda6",
+                            RoleId = "ed1e00b3-56c7-4076-bcf2-14c7e6c5ba42"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

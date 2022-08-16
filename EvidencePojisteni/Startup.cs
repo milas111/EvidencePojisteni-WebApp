@@ -81,10 +81,6 @@ namespace EvidencePojisteni
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
             });
-
-            /*roleManager.CreateAsync(new IdentityRole("Admin")).Wait();
-            IdentityUser user = userManager.FindByEmailAsync("soukup.miloslav1@seznam.cz").Result;
-            userManager.AddToRoleAsync(user, "Admin").Wait();*/
         }
     }
 }

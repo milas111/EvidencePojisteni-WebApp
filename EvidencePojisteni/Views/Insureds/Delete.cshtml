@@ -4,7 +4,7 @@
     ViewData["Title"] = "Odstranění pojištěnce";
 }
 
-<h2 class="font-weight-bold">Opravdu chcete vymazat daného pojištěnce?</h2>
+<h2 class="font-weight-bold">Odstranění pojištěnce</h2>
 <div>
     <hr />
     <dl class="row">
@@ -58,8 +58,29 @@
         </dd>
     </dl>
 
-    <form asp-action="Delete" class="text-center">
-        <input type="hidden" asp-for="InsuredId" />
-        <input type="submit" value="Odstranit" class="btn-lg btn-danger" />
-    </form>
+    <div class="text-center">
+        <button type="button" class="btn btn-lg btn-danger" data-toggle="modal" data-target="#dialog">
+            Odstranit
+        </button>
+    </div>
+</div>
+
+<div class="modal fade" id="dialog" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="dialog-label">Opravdu chcete vymazat daného pojištěnce?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Zavřít">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="InsuredId" />
+                    <input type="submit" value="Odstranit" class="btn btn-danger" />
+                </form>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavřít</button>
+            </div>
+        </div>
+    </div>
 </div>

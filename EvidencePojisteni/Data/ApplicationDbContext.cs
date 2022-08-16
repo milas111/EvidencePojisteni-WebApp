@@ -61,14 +61,24 @@ namespace EvidencePojisteni.Data
 
             builder.Entity<IdentityUser>().HasData
                 (
-                new IdentityUser() { Id = "a1b2c3d4e5f6g7h8", UserName = "soukup.miloslav1@seznam.cz", Email = "soukup.miloslav1@seznam.cz", NormalizedEmail = "SOUKUP.MILOSLAV1@SEZNAM.CZ", NormalizedUserName = "SOUKUP.MILOSLAV1@SEZNAM.CZ", PasswordHash = "AQAAAAEAACcQAAAAEChiF/H0cKhQXypgs3JJLbBUEiv1CwvIBEiYNQwcx+ZvuoCtWmNycVq4KiX6lOV4PQ==", LockoutEnabled = true },
-                new IdentityUser() { Id = "b2c3d4e5f6g7h8i9", UserName = "zobakova.vlasta@seznam.cz", Email = "zobakova.vlasta@seznam.cz", NormalizedEmail = "ZOBAKOVA.VLASTA@SEZNAM.CZ", NormalizedUserName = "ZOBAKOVA.VLASTA@SEZNAM.CZ", PasswordHash = "AQAAAAEAACcQAAAAEChiF/H0cKhQXypgs3JJLbBUEiv1CwvIBEiYNQwcx+ZvuoCtWmNycVq4KiX6lOV4PQ==", LockoutEnabled = true }
+                new IdentityUser() { Id = "e2e36b69-61f7-4dae-bbe2-739e01adfda6", UserName = "soukup.miloslav1@seznam.cz", Email = "soukup.miloslav1@seznam.cz", NormalizedEmail = "SOUKUP.MILOSLAV1@SEZNAM.CZ", NormalizedUserName = "SOUKUP.MILOSLAV1@SEZNAM.CZ", PasswordHash = "AQAAAAEAACcQAAAAEChiF/H0cKhQXypgs3JJLbBUEiv1CwvIBEiYNQwcx+ZvuoCtWmNycVq4KiX6lOV4PQ==", LockoutEnabled = true },
+                new IdentityUser() { Id = "5e9cc9b8-31e3-4f15-b7e6-9ffb79287f54", UserName = "zobakova.vlasta@seznam.cz", Email = "zobakova.vlasta@seznam.cz", NormalizedEmail = "ZOBAKOVA.VLASTA@SEZNAM.CZ", NormalizedUserName = "ZOBAKOVA.VLASTA@SEZNAM.CZ", PasswordHash = "AQAAAAEAACcQAAAAEChiF/H0cKhQXypgs3JJLbBUEiv1CwvIBEiYNQwcx+ZvuoCtWmNycVq4KiX6lOV4PQ==", LockoutEnabled = true }
                 );
+
+            builder.Entity<IdentityRole>().HasData
+               (
+               new IdentityRole() { Id = "ed1e00b3-56c7-4076-bcf2-14c7e6c5ba42", Name = "Admin", NormalizedName = "ADMIN" }
+               );
+
+            builder.Entity<IdentityUserRole<string>>().HasData
+               (
+               new IdentityUserRole<string>() { RoleId = "ed1e00b3-56c7-4076-bcf2-14c7e6c5ba42", UserId = "e2e36b69-61f7-4dae-bbe2-739e01adfda6" }
+               );
 
             builder.Entity<Insured>().HasData
                (
-               new Insured() { InsuredId = 1, Email = "soukup.miloslav1@seznam.cz", FirstName = "Miloslav", SurName = "Soukup", Gender = Gender.Man, Phone = "neznámé číslo", Street = "Nepovím", Zip = "621 00", City = "Brno", UserId = "a1b2c3d4e5f6g7h8" },
-               new Insured() { InsuredId = 2, Email = "zobakova.vlasta@seznam.cz", FirstName = "Vlastimila", SurName = "Zobáková", Gender = Gender.Woman, Phone = "731 567 957", Street = "Karlova 73", Zip = "110 00", City = "Praha 1", UserId = "b2c3d4e5f6g7h8i9" },
+               new Insured() { InsuredId = 1, Email = "soukup.miloslav1@seznam.cz", FirstName = "Miloslav", SurName = "Soukup", Gender = Gender.Man, Phone = "neznámé číslo", Street = "Nepovím", Zip = "621 00", City = "Brno", UserId = "e2e36b69-61f7-4dae-bbe2-739e01adfda6" },
+               new Insured() { InsuredId = 2, Email = "zobakova.vlasta@seznam.cz", FirstName = "Vlastimila", SurName = "Zobáková", Gender = Gender.Woman, Phone = "731 567 957", Street = "Karlova 73", Zip = "110 00", City = "Praha 1", UserId = "5e9cc9b8-31e3-4f15-b7e6-9ffb79287f54" },
                new Insured() { InsuredId = 3, Email = "david.uplakanek@seznam.cz", FirstName = "David", SurName = "Plaček", Gender = Gender.Man, Phone = "606 459 789", Street = "Rejskova 43", Zip = "321 00", City = "Plzeň" },
                new Insured() { InsuredId = 4, Email = "sucho.jarin@seznam.cz", FirstName = "Jaroslav", SurName = "Suchý", Gender = Gender.Man, Phone = "721 568 986", Street = "Kosmonautů 98", Zip = "530 03", City = "Pardubice" },
                new Insured() { InsuredId = 5, Email = "renatka.naruzivka@seznam.cz", FirstName = "Renata", SurName = "Náruživá", Gender = Gender.Woman, Phone = "798 251 368", Street = "Zvonková 45", Zip = "767 01", City = "Kroměříž" },

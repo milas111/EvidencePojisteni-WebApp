@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace EvidencePojisteni.Data.Migrations
 {
-    public partial class Data_filling : Migration
+    public partial class Insert_Values_To_Database : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,12 +18,17 @@ namespace EvidencePojisteni.Data.Migrations
                 oldNullable: true);
 
             migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "ed1e00b3-56c7-4076-bcf2-14c7e6c5ba42", "03f8222e-627c-48e3-884c-0d90723544eb", "Admin", "ADMIN" });
+
+            migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "a1b2c3d4e5f6g7h8", 0, "2386b683-ad2b-4ccc-a528-25e4336a7631", "soukup.miloslav1@seznam.cz", false, true, null, "SOUKUP.MILOSLAV1@SEZNAM.CZ", "SOUKUP.MILOSLAV1@SEZNAM.CZ", "AQAAAAEAACcQAAAAEChiF/H0cKhQXypgs3JJLbBUEiv1CwvIBEiYNQwcx+ZvuoCtWmNycVq4KiX6lOV4PQ==", null, false, "e7468410-565a-45ad-a5c9-6fc127588b70", false, "soukup.miloslav1@seznam.cz" },
-                    { "b2c3d4e5f6g7h8i9", 0, "134f0be7-b13e-4968-9837-938acca76294", "zobakova.vlasta@seznam.cz", false, true, null, "ZOBAKOVA.VLASTA@SEZNAM.CZ", "ZOBAKOVA.VLASTA@SEZNAM.CZ", "AQAAAAEAACcQAAAAEChiF/H0cKhQXypgs3JJLbBUEiv1CwvIBEiYNQwcx+ZvuoCtWmNycVq4KiX6lOV4PQ==", null, false, "90116286-2ce9-422a-a20a-1cd3f80e89ba", false, "zobakova.vlasta@seznam.cz" }
+                    { "e2e36b69-61f7-4dae-bbe2-739e01adfda6", 0, "e5077a54-57fa-48c3-875b-43842b46062a", "soukup.miloslav1@seznam.cz", false, true, null, "SOUKUP.MILOSLAV1@SEZNAM.CZ", "SOUKUP.MILOSLAV1@SEZNAM.CZ", "AQAAAAEAACcQAAAAEChiF/H0cKhQXypgs3JJLbBUEiv1CwvIBEiYNQwcx+ZvuoCtWmNycVq4KiX6lOV4PQ==", null, false, "8ebe85f4-58c5-4ff8-becd-ad4b12f5934d", false, "soukup.miloslav1@seznam.cz" },
+                    { "5e9cc9b8-31e3-4f15-b7e6-9ffb79287f54", 0, "a0d66d01-7651-4613-8f4f-e076bc9e17f8", "zobakova.vlasta@seznam.cz", false, true, null, "ZOBAKOVA.VLASTA@SEZNAM.CZ", "ZOBAKOVA.VLASTA@SEZNAM.CZ", "AQAAAAEAACcQAAAAEChiF/H0cKhQXypgs3JJLbBUEiv1CwvIBEiYNQwcx+ZvuoCtWmNycVq4KiX6lOV4PQ==", null, false, "7b4ea926-276c-47df-a788-bd8e96c7d982", false, "zobakova.vlasta@seznam.cz" }
                 });
 
             migrationBuilder.InsertData(
@@ -50,6 +55,11 @@ namespace EvidencePojisteni.Data.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[] { "ed1e00b3-56c7-4076-bcf2-14c7e6c5ba42", "e2e36b69-61f7-4dae-bbe2-739e01adfda6" });
+
+            migrationBuilder.InsertData(
                 table: "AssignedInsurance",
                 columns: new[] { "AssignedInsuranceId", "InsuranceId", "InsuranceRole", "InsuredId", "Issue", "Paid", "ValidFrom", "ValidTo", "Value" },
                 values: new object[] { 4, 4, 0, 3, "Úraz", false, new DateTime(2022, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), 3000 });
@@ -57,12 +67,11 @@ namespace EvidencePojisteni.Data.Migrations
             migrationBuilder.InsertData(
                 table: "Insured",
                 columns: new[] { "InsuredId", "City", "Email", "FirstName", "Gender", "Phone", "Street", "SurName", "UserId", "Zip" },
-                values: new object[] { 1, "Brno", "soukup.miloslav1@seznam.cz", "Miloslav", 1, "neznámé číslo", "Nepovím", "Soukup", "a1b2c3d4e5f6g7h8", "621 00" });
-
-            migrationBuilder.InsertData(
-                table: "Insured",
-                columns: new[] { "InsuredId", "City", "Email", "FirstName", "Gender", "Phone", "Street", "SurName", "UserId", "Zip" },
-                values: new object[] { 2, "Praha 1", "zobakova.vlasta@seznam.cz", "Vlastimila", 0, "731 567 957", "Karlova 73", "Zobáková", "b2c3d4e5f6g7h8i9", "110 00" });
+                values: new object[,]
+                {
+                    { 1, "Brno", "soukup.miloslav1@seznam.cz", "Miloslav", 1, "neznámé číslo", "Nepovím", "Soukup", "e2e36b69-61f7-4dae-bbe2-739e01adfda6", "621 00" },
+                    { 2, "Praha 1", "zobakova.vlasta@seznam.cz", "Vlastimila", 0, "731 567 957", "Karlova 73", "Zobáková", "5e9cc9b8-31e3-4f15-b7e6-9ffb79287f54", "110 00" }
+                });
 
             migrationBuilder.InsertData(
                 table: "AssignedInsurance",
@@ -92,6 +101,11 @@ namespace EvidencePojisteni.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DeleteData(
+                table: "AspNetUserRoles",
+                keyColumns: new[] { "RoleId", "UserId" },
+                keyValues: new object[] { "ed1e00b3-56c7-4076-bcf2-14c7e6c5ba42", "e2e36b69-61f7-4dae-bbe2-739e01adfda6" });
+
             migrationBuilder.DeleteData(
                 table: "AssignedInsurance",
                 keyColumn: "AssignedInsuranceId",
@@ -138,6 +152,11 @@ namespace EvidencePojisteni.Data.Migrations
                 keyValue: 7);
 
             migrationBuilder.DeleteData(
+                table: "AspNetRoles",
+                keyColumn: "Id",
+                keyValue: "ed1e00b3-56c7-4076-bcf2-14c7e6c5ba42");
+
+            migrationBuilder.DeleteData(
                 table: "AssignedInsurance",
                 keyColumn: "AssignedInsuranceId",
                 keyValue: 3);
@@ -165,7 +184,7 @@ namespace EvidencePojisteni.Data.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
-                keyValue: "b2c3d4e5f6g7h8i9");
+                keyValue: "5e9cc9b8-31e3-4f15-b7e6-9ffb79287f54");
 
             migrationBuilder.DeleteData(
                 table: "Insurance",
@@ -190,7 +209,7 @@ namespace EvidencePojisteni.Data.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
-                keyValue: "a1b2c3d4e5f6g7h8");
+                keyValue: "e2e36b69-61f7-4dae-bbe2-739e01adfda6");
 
             migrationBuilder.AlterColumn<string>(
                 name: "EventDescription",
